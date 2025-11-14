@@ -1,0 +1,17 @@
+{
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "ALLOW-FROM https://www.youtube.com"
+        },
+        {
+          "key": "Content-Security-Policy",
+          "value": "frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com"
+        }
+      ]
+    }
+  ]
+}

@@ -1266,14 +1266,18 @@
             <h2>Our Initiative in Action</h2>
             <div class="video-wrapper">
                 <iframe 
-                    src="https://www.youtube.com/embed/jKpxehVWJh4?si=JJm48Icl4P65HMVC"
+                    id="youtubeVideo"
+                    src="https://www.youtube.com/embed/jKpxehVWJh4?enablejsapi=1&rel=0&modestbranding=1"
                     title="NBI IRM Initiative Video" 
                     frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" 
                     allowfullscreen
-                    referrerpolicy="strict-origin-when-cross-origin"
-                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 10px;">
+                    loading="lazy"
+                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 10px; border: none;">
                 </iframe>
+            </div>
+            <div id="videoFallback" style="display: none; margin-top: 20px; padding: 20px; background: #f8f9fa; border-radius: 10px;">
+                <p>Having trouble viewing the video? <a href="https://www.youtube.com/watch?v=jKpxehVWJh4" target="_blank">Watch it directly on YouTube</a></p>
             </div>        
         </div>
     </div>
@@ -1532,6 +1536,47 @@
                 icon.classList.add('fa-bars');
             }
         });
+
+        // YouTube Video Enhancement with Fallback
+        function enhanceYouTubeEmbed() {
+            const videoIframe = document.getElementById('youtubeVideo');
+            const fallbackDiv = document.getElementById('videoFallback');
+            
+            if (!videoIframe) return;
+            
+            // Get current origin for dynamic origin parameter
+            const currentOrigin = window.location.origin || 'https://irmhub.vercel.app';
+            
+            // Update iframe src with enhanced parameters
+            const videoId = 'jKpxehVWJh4';
+            const enhancedSrc = `https://www.youtube.com/embed/${videoId}?enablejsapi=1&origin=${encodeURIComponent(currentOrigin)}&rel=0&modestbranding=1`;
+            
+            videoIframe.src = enhancedSrc;
+            
+            console.log('YouTube embed enhanced with origin:', currentOrigin);
+            
+            // Add error handling for the iframe
+            videoIframe.addEventListener('error', () => {
+                console.error('YouTube embed failed to load');
+                fallbackDiv.style.display = 'block';
+            });
+            
+            // Check if iframe loaded successfully after 5 seconds
+            setTimeout(() => {
+                try {
+                    const iframeDoc = videoIframe.contentDocument || videoIframe.contentWindow.document;
+                    if (!iframeDoc || iframeDoc.readyState === 'complete') {
+                        console.log('YouTube embed loaded successfully');
+                    }
+                } catch (e) {
+                    // Cross-origin restriction - this is normal for YouTube embeds
+                    console.log('YouTube embed is loading (cross-origin restrictions prevent full verification)');
+                }
+            }, 5000);
+        }
+
+        // Initialize YouTube enhancement when DOM is loaded
+        document.addEventListener('DOMContentLoaded', enhanceYouTubeEmbed);
 
         // WhatsApp Chatbot Functionality
         function togglePopup() {
