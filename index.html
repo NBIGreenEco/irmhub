@@ -233,7 +233,7 @@
             height: 70vh;
             min-height: 400px;
             background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
-                        url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80') center/cover no-repeat;
+                        url('images/hero.jfif') center/cover no-repeat;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -899,158 +899,6 @@
             color: var(--irm-yellow);
         }
 
-        /* WhatsApp Chatbot Styles */
-        .whatsapp-chatbot {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1000;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-        }
-
-        .whatsapp-button {
-            width: 60px;
-            height: 60px;
-            background-color: #25D366;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.5);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            animation: pulse 2s infinite;
-        }
-
-        .whatsapp-button:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.7);
-        }
-
-        .whatsapp-button i {
-            color: white;
-            font-size: 30px;
-        }
-
-        .whatsapp-popup {
-            background-color: white;
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 15px;
-            width: 250px;
-            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
-            display: none;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .whatsapp-popup.show {
-            display: block;
-        }
-
-        .whatsapp-popup-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #eee;
-        }
-
-        .whatsapp-popup-avatar {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, var(--irm-green), var(--irm-cyan));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 10px;
-        }
-
-        .whatsapp-popup-avatar i {
-            color: white;
-            font-size: 20px;
-        }
-
-        .whatsapp-popup-info h4 {
-            margin: 0;
-            font-size: 16px;
-            color: var(--irm-green);
-            font-weight: 600;
-        }
-
-        .whatsapp-popup-info p {
-            margin: 0;
-            font-size: 12px;
-            color: #666;
-            font-weight: 400;
-        }
-
-        .whatsapp-popup-message {
-            font-size: 14px;
-            margin-bottom: 15px;
-            color: #333;
-            font-weight: 400;
-        }
-
-        .whatsapp-popup-actions {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .whatsapp-popup-actions button {
-            padding: 8px 15px;
-            border: none;
-            border-radius: 20px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .whatsapp-popup-actions .btn-whatsapp {
-            background-color: #25D366;
-            color: white;
-            flex-grow: 1;
-            margin-right: 10px;
-        }
-
-        .whatsapp-popup-actions .btn-whatsapp:hover {
-            background-color: #128C7E;
-        }
-
-        .whatsapp-popup-actions .btn-close {
-            background-color: #f5f5f5;
-            color: #666;
-        }
-
-        .whatsapp-popup-actions .btn-close:hover {
-            background-color: #eaeaea;
-        }
-
-        @keyframes pulse {
-            0% {
-                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
-            }
-            70% {
-                box-shadow: 0 0 0 10px rgba(37, 211, 102, 0);
-            }
-            100% {
-                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
-            }
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
         /* Desktop Responsive */
         @media (min-width: 769px) {
             .hero {
@@ -1213,7 +1061,7 @@
         <div class="journey-container">
             <div class="journey-card">
                 <div class="journey-image">
-                    <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Artisans and Technicians">
+                    <img src="images/artisan.jpg" alt="Artisans and Technicians">
                 </div>
                 <div class="journey-content">
                     <h3>I'm an Artisan or Technician</h3>
@@ -1223,7 +1071,7 @@
             </div>
             <div class="journey-card">
                 <div class="journey-image">
-                    <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="SMEs and Entrepreneurs">
+                    <img src="images/sme.jpg" alt="SMEs and Entrepreneurs">
                 </div>
                 <div class="journey-content">
                     <h3>I'm an SME or Entrepreneur</h3>
@@ -1233,7 +1081,7 @@
             </div>
             <div class="journey-card">
                 <div class="journey-image">
-                    <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="TVET Students and Graduates">
+                    <img src="images/student.jpg" alt="TVET Students and Graduates">
                 </div>
                 <div class="journey-content">
                     <h3>I'm a TVET Student or Graduate</h3>
@@ -1243,7 +1091,7 @@
             </div>
             <div class="journey-card">
                 <div class="journey-image">
-                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Industry and Government">
+                    <img src="images/goverment.jpg" alt="Industry and Government">
                 </div>
                 <div class="journey-content">
                     <h3>I'm from Industry or Government</h3>
@@ -1437,35 +1285,6 @@
         </div>
     </section>
 
-    <!-- WhatsApp Chatbot -->
-    <div class="whatsapp-chatbot">
-        <div class="whatsapp-popup" id="whatsappPopup">
-            <div class="whatsapp-popup-header">
-                <div class="whatsapp-popup-avatar">
-                    <i class="fas fa-robot"></i>
-                </div>
-                <div class="whatsapp-popup-info">
-                    <h4>IRM Assistant</h4>
-                    <p>Online • Usually replies instantly</p>
-                </div>
-            </div>
-            <div class="whatsapp-popup-message">
-                Hi! 👋 I'm the IRM Assistant. How can I help you find the right resources today?
-            </div>
-            <div class="whatsapp-popup-actions">
-                <button class="btn-whatsapp" onclick="openWhatsApp()">
-                    <i class="fab fa-whatsapp"></i> Start Chat
-                </button>
-                <button class="btn-close" onclick="closePopup()">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-        </div>
-        <div class="whatsapp-button" onclick="togglePopup()">
-            <i class="fab fa-whatsapp"></i>
-        </div>
-    </div>
-
     <!-- Footer -->
     <footer>
         <div class="footer-content">
@@ -1577,54 +1396,6 @@
 
         // Initialize YouTube enhancement when DOM is loaded
         document.addEventListener('DOMContentLoaded', enhanceYouTubeEmbed);
-
-        // WhatsApp Chatbot Functionality
-        function togglePopup() {
-            const popup = document.getElementById('whatsappPopup');
-            popup.classList.toggle('show');
-        }
-
-        function closePopup() {
-            const popup = document.getElementById('whatsappPopup');
-            popup.classList.remove('show');
-        }
-
-        function openWhatsApp() {
-            // Replace this phone number with your actual WhatsApp business number
-            const phoneNumber = "27123456789"; // Example South African number format
-            // Predefined message that users will send
-            const message = "Hello, I'm interested in the IRM Initiative. Can you help me find the right resources?";
-            // Encode the message for URL
-            const encodedMessage = encodeURIComponent(message);
-            // Create the WhatsApp URL
-            const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-            // Open WhatsApp in a new tab
-            window.open(whatsappURL, '_blank');
-            // Close the popup
-            closePopup();
-        }
-
-        // Auto-show the popup after 10 seconds
-        setTimeout(() => {
-            // Check if the popup hasn't been shown yet in this session
-            if (!sessionStorage.getItem('whatsappPopupShown')) {
-                const popup = document.getElementById('whatsappPopup');
-                popup.classList.add('show');
-                sessionStorage.setItem('whatsappPopupShown', 'true');
-            }
-        }, 10000);
-
-        // Close popup when clicking outside of it
-        document.addEventListener('click', function(event) {
-            const popup = document.getElementById('whatsappPopup');
-            const button = document.querySelector('.whatsapp-button');
-            
-            if (popup.classList.contains('show') && 
-                !popup.contains(event.target) && 
-                !button.contains(event.target)) {
-                closePopup();
-            }
-        });
     </script>
 </body>
 </html>
