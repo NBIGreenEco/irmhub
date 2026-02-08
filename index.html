@@ -1,1457 +1,1845 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>IRMHub - Installation, Repair, and Maintenance Initiative</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
     <!-- Bootstrap Icons for person icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+    />
+
     <!-- Favicon Links -->
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link rel="icon" type="image/png" href="favicon.png">
-    
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="icon" type="image/png" href="favicon.png" />
+
     <style>
-        :root {
-            /* Colors based on IRM/Green Economy theme */
-            --irm-green: #44a918;
-            --irm-yellow: #f1c232; 
-            --irm-blue: #3c78d8; 
-            --irm-cyan: #00bcd4; 
-            --nbi-teal: #005d6a; /* Changed from #2596be to #005d6a */
-            --socials-bg: #005d6a;
-            --text-dark: #333333;
-            --text-light: #ffffff;
-            --background-light: #f9f9f9;
-            --card-shadow: 0 8px 30px rgba(0,0,0,0.08);
-        }
+      :root {
+        /* Colors based on IRM/Green Economy theme */
+        --irm-green: #44a918;
+        --irm-yellow: #f1c232;
+        --irm-blue: #3c78d8;
+        --irm-cyan: #00bcd4;
+        --nbi-teal: #005d6a; /* Changed from #2596be to #005d6a */
+        --socials-bg: #005d6a;
+        --text-dark: #333333;
+        --text-light: #ffffff;
+        --background-light: #f9f9f9;
+        --card-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+      }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        html {
-            scroll-behavior: smooth;
-        }
+      html {
+        scroll-behavior: smooth;
+      }
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            background: var(--background-light);
-            color: var(--text-dark);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
+      body {
+        font-family: "Poppins", sans-serif;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        background: var(--background-light);
+        color: var(--text-dark);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
 
-        /* Navigation */
+      /* Navigation */
+      nav {
+        background: var(--text-light);
+        padding: 1rem 1.5rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        height: 70px;
+      }
+
+      .logo-container {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .logo {
+        height: 50px;
+        width: auto;
+      }
+
+      .nbi-logo-container {
+        display: flex;
+        align-items: center;
+        margin-left: auto;
+      }
+
+      .nbi-logo {
+        height: 50px;
+        width: auto;
+      }
+
+      .nav-right-section {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .menu-toggle {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        color: var(--text-dark);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+      }
+
+      .menu-toggle:hover {
+        background-color: #f1f1f1;
+      }
+
+      .nav-links {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: var(--text-light);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 1.5rem 0;
+        transform: translateY(-100%);
+        opacity: 0;
+        transition: all 0.4s ease;
+        z-index: 999;
+        pointer-events: none;
+      }
+
+      .nav-links.active {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: all;
+      }
+
+      .nav-links li {
+        list-style: none;
+        width: 100%;
+        text-align: center;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: var(--text-dark);
+        font-weight: 500;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+        display: block;
+        padding: 1rem 0;
+        width: 100%;
+        position: relative;
+      }
+
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        background: linear-gradient(
+          to right,
+          var(--irm-green),
+          var(--irm-cyan)
+        );
+        transition: width 0.3s ease;
+      }
+
+      .nav-links a:hover {
+        color: var(--irm-green);
+        background-color: #f8f9fa;
+      }
+
+      .nav-links a:hover::after {
+        width: 80%;
+      }
+
+      /* Desktop Navigation - FIXED */
+      @media (min-width: 769px) {
         nav {
-            background: var(--text-light);
-            padding: 1rem 1.5rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            height: 70px;
-        }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 15px;
+          padding: 1rem 2rem;
+          justify-content: space-between;
+          position: relative;
         }
 
         .logo {
-            height: 50px;
-            width: auto;
-        }
-
-        .nbi-logo-container {
-            display: flex;
-            align-items: center;
-            margin-left: auto;
+          height: 55px;
         }
 
         .nbi-logo {
-            height: 50px;
-            width: auto;
+          height: 55px;
         }
 
         .nav-right-section {
-            display: flex;
-            align-items: center;
-            gap: 15px;
+          display: flex;
+          align-items: center;
+          gap: 20px;
         }
 
         .menu-toggle {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: var(--text-dark);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-        }
-
-        .menu-toggle:hover {
-            background-color: #f1f1f1;
+          display: none;
         }
 
         .nav-links {
-            position: fixed;
-            top: 70px;
-            left: 0;
-            width: 100%;
-            background: var(--text-light);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 1.5rem 0;
-            transform: translateY(-100%);
-            opacity: 0;
-            transition: all 0.4s ease;
-            z-index: 999;
-            pointer-events: none;
-        }
-
-        .nav-links.active {
-            transform: translateY(0);
-            opacity: 1;
-            pointer-events: all;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          opacity: 1;
+          flex-direction: row;
+          justify-content: center;
+          gap: 2rem;
+          padding: 0;
+          box-shadow: none;
+          background: transparent;
+          width: auto;
+          pointer-events: all;
+          height: auto;
         }
 
         .nav-links li {
-            list-style: none;
-            width: 100%;
-            text-align: center;
+          width: auto;
         }
 
         .nav-links a {
-            text-decoration: none;
-            color: var(--text-dark);
-            font-weight: 500;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            display: block;
-            padding: 1rem 0;
-            width: 100%;
-            position: relative;
+          padding: 0.5rem 0;
+          width: auto;
         }
 
         .nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            background: linear-gradient(to right, var(--irm-green), var(--irm-cyan));
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: var(--irm-green);
-            background-color: #f8f9fa;
+          left: 0;
+          transform: none;
         }
 
         .nav-links a:hover::after {
-            width: 80%;
+          width: 100%;
         }
 
-        /* Desktop Navigation - FIXED */
-        @media (min-width: 769px) {
-            nav {
-                padding: 1rem 2rem;
-                justify-content: space-between;
-                position: relative;
-            }
-            
-            .logo {
-                height: 55px;
-            }
-            
-            .nbi-logo {
-                height: 55px;
-            }
-            
-            .nav-right-section {
-                display: flex;
-                align-items: center;
-                gap: 20px;
-            }
-            
-            .menu-toggle {
-                display: none;
-            }
-            
-            .nav-links {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                opacity: 1;
-                flex-direction: row;
-                justify-content: center;
-                gap: 2rem;
-                padding: 0;
-                box-shadow: none;
-                background: transparent;
-                width: auto;
-                pointer-events: all;
-                height: auto;
-            }
-            
-            .nav-links li {
-                width: auto;
-            }
-            
-            .nav-links a {
-                padding: 0.5rem 0;
-                width: auto;
-            }
-            
-            .nav-links a::after {
-                left: 0;
-                transform: none;
-            }
-            
-            .nav-links a:hover::after {
-                width: 100%;
-            }
-            
-            .nav-links a:hover {
-                background-color: transparent;
-            }
+        .nav-links a:hover {
+          background-color: transparent;
         }
+      }
 
-        /* Hero Section */
-        .hero {
-            height: 70vh;
-            min-height: 400px;
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
-                        url('images/hero.jfif') center/cover no-repeat;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            margin-top: 0;
-        }
+      /* Hero Section */
+      .hero {
+        height: 70vh;
+        min-height: 400px;
+        background:
+          linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)),
+          url("images/newHero.jpg") center/cover no-repeat;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        margin-top: 0;
+      }
 
-        .hero-content {
-            text-align: center;
-            color: var(--text-light);
-            z-index: 1;
-            max-width: 900px;
-            padding: 0 2rem;
-        }
+      .hero h1,
+      .hero p {
+        color: white;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+      }
 
-        .hero-title {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-            line-height: 1.2;
-        }
+      .hero-content {
+        text-align: center;
+        color: var(--text-light);
+        z-index: 1;
+        max-width: 900px;
+        padding: 0 2rem;
+      }
 
-        .hero-subtitle {
-            font-size: 1.1rem;
-            font-weight: 400;
-            margin-bottom: 2.5rem;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
-            line-height: 1.6;
-        }
+      .hero-title {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        line-height: 1.2;
+      }
 
-        .hero-subtitle a {
-            color: #00bcd4; /* Changed NBI link color to #00bcd4 */
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s ease;
-        }
+      .hero-subtitle {
+        font-size: 1.1rem;
+        font-weight: 400;
+        margin-bottom: 2.5rem;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        line-height: 1.6;
+      }
 
-        .hero-subtitle a:hover {
-            color: var(--text-light);
-            text-decoration: underline;
-        }
+      .hero-subtitle a {
+        color: #00bcd4; /* Changed NBI link color to #00bcd4 */
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.3s ease;
+      }
 
-        .hero-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            justify-content: center;
-            align-items: center;
-        }
+      .hero-subtitle a:hover {
+        color: var(--text-light);
+        text-decoration: underline;
+      }
 
-        .hero-cta {
-            display: inline-block;
-            padding: 1rem 2.5rem;
-            background: linear-gradient(to right, var(--irm-green), var(--irm-cyan));
-            color: var(--text-light);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1rem;
-            border-radius: 30px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 188, 212, 0.4);
-        }
+      .hero-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        justify-content: center;
+        align-items: center;
+      }
 
-        .hero-cta:hover {
-            background: linear-gradient(to right, var(--irm-cyan), var(--irm-green));
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(68, 169, 24, 0.5);
-        }
+      .hero-cta {
+        display: inline-block;
+        padding: 1rem 2.5rem;
+        background: linear-gradient(
+          to right,
+          var(--irm-green),
+          var(--irm-cyan)
+        );
+        color: var(--text-light);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 1rem;
+        border-radius: 30px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0, 188, 212, 0.4);
+      }
 
-        .about-irm-btn {
-            display: inline-block;
-            padding: 1rem 2.5rem;
-            background: transparent;
-            color: var(--text-light);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1rem;
-            border-radius: 30px;
-            transition: all 0.3s ease;
-            border: 2px solid var(--text-light);
-        }
+      .hero-cta:hover {
+        background: linear-gradient(
+          to right,
+          var(--irm-cyan),
+          var(--irm-green)
+        );
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(68, 169, 24, 0.5);
+      }
 
-        .about-irm-btn:hover {
-            background: var(--text-light);
-            color: var(--text-dark);
-            transform: translateY(-3px);
-        }
+      .about-irm-btn {
+        display: inline-block;
+        padding: 1rem 2.5rem;
+        background: transparent;
+        color: var(--text-light);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 1rem;
+        border-radius: 30px;
+        transition: all 0.3s ease;
+        border: 2px solid var(--text-light);
+      }
 
-        /* User Journey Section */
-        .user-journey {
-            background: var(--text-light);
-            padding: 4rem 1.5rem;
-        }
+      .about-irm-btn:hover {
+        background: var(--text-light);
+        color: var(--text-dark);
+        transform: translateY(-3px);
+      }
 
-        .section-title {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
+      /* User Journey Section */
+      .user-journey {
+        background: var(--text-light);
+        padding: 4rem 1.5rem;
+      }
 
-        .section-title h2 {
-            font-size: 1.8rem;
-            background: linear-gradient(to right, var(--irm-green), var(--irm-cyan));
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 1rem;
-            font-weight: 700;
-        }
+      .section-title {
+        text-align: center;
+        margin-bottom: 3rem;
+      }
 
-        .section-title p {
-            max-width: 700px;
-            margin: 0 auto;
-            font-size: 1rem;
-            color: #555;
-            font-weight: 400;
-        }
+      .section-title h2 {
+        font-size: 1.8rem;
+        background: linear-gradient(
+          to right,
+          var(--irm-green),
+          var(--irm-cyan)
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 1rem;
+        font-weight: 700;
+      }
 
-        .journey-container {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 2rem;
+      .section-title p {
+        max-width: 700px;
+        margin: 0 auto;
+        font-size: 1rem;
+        color: #555;
+        font-weight: 400;
+      }
+
+      .journey-container {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .journey-card {
+        background: var(--text-light);
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: var(--card-shadow);
+        transition:
+          transform 0.3s,
+          box-shadow 0.3s;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+      }
+
+      .journey-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+      }
+
+      .journey-image {
+        height: 200px;
+        overflow: hidden;
+      }
+
+      .journey-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s;
+      }
+
+      .journey-card:hover .journey-image img {
+        transform: scale(1.05);
+      }
+
+      .journey-content {
+        padding: 25px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .journey-content h3 {
+        font-size: 1.5rem;
+        color: var(--irm-green);
+        margin-bottom: 15px;
+        font-weight: 600;
+      }
+
+      .journey-content p {
+        margin-bottom: 20px;
+        color: #555;
+        flex-grow: 1;
+        font-weight: 400;
+      }
+
+      .journey-cta {
+        display: inline-block;
+        padding: 10px 20px;
+        background: var(--irm-cyan);
+        color: var(--text-light);
+        text-decoration: none;
+        border-radius: 30px;
+        font-weight: 600;
+        transition: all 0.3s;
+        text-align: center;
+        margin-top: auto;
+      }
+
+      .journey-cta:hover {
+        background: var(--irm-green);
+        transform: translateY(-2px);
+      }
+
+      /* Section Intro */
+      .section-intro {
+        background: var(--text-light);
+        padding: 4rem 1.5rem;
+        text-align: center;
+      }
+
+      .section-intro h2 {
+        font-size: 1.8rem;
+        background: linear-gradient(
+          to right,
+          var(--irm-green),
+          var(--irm-cyan)
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 2rem;
+        font-weight: 700;
+      }
+
+      .section-intro p {
+        max-width: 900px;
+        margin: 0 auto;
+        font-size: 1rem;
+        color: #555;
+        line-height: 1.8;
+        font-weight: 400;
+      }
+
+      .section-intro strong {
+        background: linear-gradient(
+          to right,
+          var(--irm-green),
+          var(--irm-cyan)
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: 600;
+      }
+
+      /* YouTube Video Section */
+      .youtube-section {
+        background: var(--text-light);
+        padding: 4rem 1.5rem;
+        text-align: center;
+      }
+
+      .youtube-container {
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+
+      .youtube-container h2 {
+        font-size: 1.8rem;
+        background: linear-gradient(
+          to right,
+          var(--irm-green),
+          var(--irm-cyan)
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 3rem;
+        font-weight: 700;
+      }
+
+      .video-wrapper {
+        position: relative;
+        width: 100%;
+        padding-bottom: 56.25%;
+        height: 0;
+        overflow: hidden;
+        border-radius: 10px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Platforms Section */
+      .platforms-container {
+        background: linear-gradient(to bottom, #f0fcfd, #e6f7ff);
+        padding: 4rem 1.5rem;
+        width: 100%;
+      }
+
+      .platforms-title {
+        font-size: 1.8rem;
+        text-align: center;
+        margin-bottom: 3rem;
+        background: linear-gradient(
+          to right,
+          var(--irm-green),
+          var(--irm-cyan)
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: 700;
+      }
+
+      .platforms-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      .platform-card {
+        background: var(--text-light);
+        border-radius: 15px;
+        padding: 2rem 1.5rem;
+        box-shadow: var(--card-shadow);
+        transition:
+          transform 0.3s,
+          box-shadow 0.3s;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        border-top: 5px solid var(--irm-green);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .platform-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+      }
+
+      .platform-icon {
+        width: 70px;
+        height: 70px;
+        margin-bottom: 20px;
+        background: linear-gradient(135deg, var(--irm-green), var(--irm-cyan));
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.8rem;
+        color: white;
+      }
+
+      .platform-title {
+        font-size: 1.2rem;
+        color: var(--irm-green);
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        text-align: center;
+      }
+
+      .platform-url {
+        color: var(--irm-cyan);
+        text-decoration: none;
+        margin-bottom: 1.5rem;
+        text-align: center;
+        font-weight: 500;
+        transition: color 0.3s ease;
+        word-break: break-word;
+      }
+
+      .platform-url:hover {
+        color: var(--irm-green);
+        text-decoration: underline;
+      }
+
+      .platform-features {
+        margin-bottom: 2rem;
+        flex-grow: 1;
+        overflow-x: auto;
+      }
+
+      .platform-features table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      .platform-features th {
+        background: linear-gradient(
+          to right,
+          var(--irm-green),
+          var(--irm-cyan)
+        );
+        color: var(--text-light);
+        padding: 0.8rem;
+        text-align: left;
+        font-weight: 600;
+      }
+
+      .platform-features td {
+        padding: 0.8rem;
+        border-bottom: 1px solid #eee;
+        font-size: 0.9rem;
+        font-weight: 400;
+      }
+
+      .platform-features tr:last-child td {
+        border-bottom: none;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 0.8rem 1.5rem;
+        text-decoration: none;
+        border-radius: 30px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        border: 2px solid;
+        text-align: center;
+        width: 100%;
+      }
+
+      .btn-learning {
+        background-color: var(--irm-green);
+        color: var(--text-light);
+        border-color: var(--irm-green);
+      }
+
+      .btn-hub {
+        background-color: var(--irm-cyan);
+        color: var(--text-light);
+        border-color: var(--irm-cyan);
+      }
+
+      .btn-toolkit {
+        background-color: var(--irm-green);
+        color: var(--text-light);
+        border-color: var(--irm-green);
+      }
+
+      .btn-learning:hover {
+        background-color: transparent;
+        color: var(--irm-green);
+      }
+
+      .btn-hub:hover {
+        background-color: transparent;
+        color: var(--irm-cyan);
+      }
+
+      .btn-toolkit:hover {
+        background-color: transparent;
+        color: var(--irm-green);
+      }
+
+      /* Testimonials Section */
+      .testimonial-carousel {
             max-width: 1200px;
             margin: 0 auto;
-        }
-
-        .journey-card {
-            background: var(--text-light);
-            border-radius: 15px;
             overflow: hidden;
-            box-shadow: var(--card-shadow);
-            transition: transform 0.3s, box-shadow 0.3s;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-        }
-
-        .journey-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.12);
-        }
-
-        .journey-image {
-            height: 200px;
-            overflow: hidden;
-        }
-
-        .journey-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s;
-        }
-
-        .journey-card:hover .journey-image img {
-            transform: scale(1.05);
-        }
-
-        .journey-content {
-            padding: 25px;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .journey-content h3 {
-            font-size: 1.5rem;
-            color: var(--irm-green);
-            margin-bottom: 15px;
-            font-weight: 600;
-        }
-
-        .journey-content p {
-            margin-bottom: 20px;
-            color: #555;
-            flex-grow: 1;
-            font-weight: 400;
-        }
-
-        .journey-cta {
-            display: inline-block;
-            padding: 10px 20px;
-            background: var(--irm-cyan);
-            color: var(--text-light);
-            text-decoration: none;
-            border-radius: 30px;
-            font-weight: 600;
-            transition: all 0.3s;
-            text-align: center;
-            margin-top: auto;
-        }
-
-        .journey-cta:hover {
-            background: var(--irm-green);
-            transform: translateY(-2px);
-        }
-
-        /* Section Intro */
-        .section-intro {
-            background: var(--text-light);
-            padding: 4rem 1.5rem;
-            text-align: center;
-        }
-
-        .section-intro h2 {
-            font-size: 1.8rem;
-            background: linear-gradient(to right, var(--irm-green), var(--irm-cyan));
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 2rem;
-            font-weight: 700;
-        }
-
-        .section-intro p {
-            max-width: 900px;
-            margin: 0 auto;
-            font-size: 1rem;
-            color: #555;
-            line-height: 1.8;
-            font-weight: 400;
-        }
-
-        .section-intro strong {
-            background: linear-gradient(to right, var(--irm-green), var(--irm-cyan));
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 600;
-        }
-
-        /* YouTube Video Section */
-        .youtube-section {
-            background: var(--text-light);
-            padding: 4rem 1.5rem;
-            text-align: center;
-        }
-
-        .youtube-container {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .youtube-container h2 {
-            font-size: 1.8rem;
-            background: linear-gradient(to right, var(--irm-green), var(--irm-cyan));
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 3rem;
-            font-weight: 700;
-        }
-
-        .video-wrapper {
             position: relative;
-            width: 100%;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
 
-        /* Platforms Section */
-        .platforms-container {
-            background: linear-gradient(to bottom, #f0fcfd, #e6f7ff);
-            padding: 4rem 1.5rem;
-            width: 100%;
-        }
-
-        .platforms-title {
-            font-size: 1.8rem;
-            text-align: center;
-            margin-bottom: 3rem;
-            background: linear-gradient(to right, var(--irm-green), var(--irm-cyan));
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 700;
-        }
-
-        .platforms-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 2rem;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .platform-card {
-            background: var(--text-light);
-            border-radius: 15px;
-            padding: 2rem 1.5rem;
-            box-shadow: var(--card-shadow);
-            transition: transform 0.3s, box-shadow 0.3s;
+        .testimonial-track {
             display: flex;
-            flex-direction: column;
-            height: 100%;
-            border-top: 5px solid var(--irm-green);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .platform-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.12);
-        }
-
-        .platform-icon {
-            width: 70px;
-            height: 70px;
-            margin-bottom: 20px;
-            background: linear-gradient(135deg, var(--irm-green), var(--irm-cyan));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            color: white;
-        }
-
-        .platform-title {
-            font-size: 1.2rem;
-            color: var(--irm-green);
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            text-align: center;
-        }
-
-        .platform-url {
-            color: var(--irm-cyan);
-            text-decoration: none;
-            margin-bottom: 1.5rem;
-            text-align: center;
-            font-weight: 500;
-            transition: color 0.3s ease;
-            word-break: break-word;
-        }
-
-        .platform-url:hover {
-            color: var(--irm-green);
-            text-decoration: underline;
-        }
-
-        .platform-features {
-            margin-bottom: 2rem;
-            flex-grow: 1;
-            overflow-x: auto;
-        }
-
-        .platform-features table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .platform-features th {
-            background: linear-gradient(to right, var(--irm-green), var(--irm-cyan));
-            color: var(--text-light);
-            padding: 0.8rem;
-            text-align: left;
-            font-weight: 600;
-        }
-
-        .platform-features td {
-            padding: 0.8rem;
-            border-bottom: 1px solid #eee;
-            font-size: 0.9rem;
-            font-weight: 400;
-        }
-
-        .platform-features tr:last-child td {
-            border-bottom: none;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 0.8rem 1.5rem;
-            text-decoration: none;
-            border-radius: 30px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: 2px solid;
-            text-align: center;
-            width: 100%;
-        }
-
-        .btn-learning {
-            background-color: var(--irm-green);
-            color: var(--text-light);
-            border-color: var(--irm-green);
-        }
-
-        .btn-hub {
-            background-color: var(--irm-cyan);
-            color: var(--text-light);
-            border-color: var(--irm-cyan);
-        }
-
-        .btn-toolkit {
-            background-color: var(--irm-green);
-            color: var(--text-light);
-            border-color: var(--irm-green);
-        }
-    
-        .btn-learning:hover { 
-            background-color: transparent; 
-            color: var(--irm-green);
-        }
-        
-        .btn-hub:hover { 
-            background-color: transparent; 
-            color: var(--irm-cyan);
-        }
-        
-        .btn-toolkit:hover { 
-            background-color: transparent; 
-            color: var(--irm-green);
-        }
-
-        /* Testimonials Section */
-        .testimonials {
-            background: var(--text-light);
-            padding: 4rem 1.5rem;
-        }
-
-        .testimonials-container {
-            max-width: 1000px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr;
             gap: 2rem;
+            width: max-content;
+            animation: scrollTestimonial 30s linear infinite;
         }
 
+        
         .testimonial-card {
-            background: #f9f9f9;
+            min-width: 320px;
+            max-width: 320px;
+            flex-shrink: 0;
+            background: white;
             padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            position: relative;
-        }
-
-        .testimonial-card:before {
-            content: "\201C";
-            position: absolute;
-            top: 10px;
-            left: 20px;
-            font-size: 4rem;
-            color: rgba(0, 188, 212, 0.1);
-            font-family: Georgia, serif;
-        }
-
-        .testimonial-text {
-            font-style: italic;
-            margin-bottom: 20px;
-            position: relative;
-            z-index: 1;
-            font-weight: 400;
-        }
-
-        .testimonial-author {
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            border: 1px solid #eaeaea;
             display: flex;
-            align-items: center;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
-        .author-avatar {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            margin-right: 15px;
-            overflow: hidden;
-            border: 3px solid var(--irm-green);
+       
+        /* Pause on hover (UX win) */
+        .testimonial-carousel:hover .testimonial-track {
+            animation-play-state: paused;
         }
 
-        .author-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+/* Right → Left movement */
+@keyframes scrollTestimonial {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(calc(-50% - 1rem));
+    }
+}
+/* Testimonial content */
+.testimonial-text {
+    font-style: italic;
+    margin-bottom: 25px;
+    position: relative;
+    z-index: 1;
+    font-weight: 400;
+    line-height: 1.7;
+    font-size: 1.1rem;
+    color: #333;
+    padding-left: 20px;
+    border-left: 3px solid var(--irm-green, #2ecc71);
+}
 
-        .author-info h4 {
-            margin: 0;
-            color: var(--irm-green);
-            font-weight: 600;
-        }
+.testimonial-author {
+    display: flex;
+    align-items: center;
+    margin-top: auto;
+}
 
-        .author-info p {
-            margin: 0;
-            color: #777;
-            font-size: 0.9rem;
-            font-weight: 400;
-        }
+.author-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-right: 15px;
+    overflow: hidden;
+    border: 3px solid var(--irm-green, #2ecc71);
+    flex-shrink: 0;
+}
 
-        /* Why IRM Section */
+.author-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.author-info h4 {
+    margin: 0 0 5px 0;
+    color: var(--irm-green, #2ecc71);
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.author-info p {
+    margin: 0;
+    color: #666;
+    font-size: 0.9rem;
+    font-weight: 400;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .testimonial-card {
+        min-width: 280px;
+        max-width: 280px;
+        padding: 20px;
+    }
+    
+    .testimonial-track {
+        gap: 1.5rem;
+    }
+    
+    .testimonial-text {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .testimonial-card {
+        min-width: 260px;
+        max-width: 260px;
+    }
+    
+    .author-avatar {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+       /* Why IRM Section */
         .why-irm {
             background: var(--text-light);
             padding: 4rem 1.5rem;
             text-align: center;
         }
 
-        .why-irm h2 {
-            font-size: 1.8rem;
-            background: linear-gradient(to right, var(--irm-green), var(--irm-cyan));
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 3rem;
-            font-weight: 700;
+ .why-irm h2 {
+    font-size: 1.8rem;
+    background: linear-gradient(to right, var(--irm-green), var(--irm-cyan));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 3rem;
+    font-weight: 700;
+}
+
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto 4rem;
+    perspective: 1000px;
+}
+
+.flip-card {
+    background-color: transparent;
+    height: 380px; /* Increased height to fit content */
+    perspective: 1000px;
+    cursor: pointer;
+    border-radius: 15px;
+    transition: transform 0.3s ease;
+}
+
+.flip-card:hover {
+    transform: translateY(-5px);
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform-style: preserve-3d;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.flip-card.flipped .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+/* Front and back styling - NO SCROLL */
+.flip-card-front,
+.flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 15px;
+    padding: 2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; /* Prevent any overflow */
+}
+
+.flip-card-front {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    color: #333;
+    border: 2px solid var(--irm-green);
+}
+
+.flip-card-back {
+    background: linear-gradient(135deg, var(--nbi-teal), var(--irm-green));
+    color: white;
+    transform: rotateY(180deg);
+    text-align: left;
+    justify-content: flex-start;
+    align-items: stretch;
+}
+
+/* Front side content */
+.benefit-icon {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, var(--irm-green), var(--irm-cyan));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.benefit-text {
+    font-weight: 700;
+    color: var(--irm-green);
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+    text-align: center;
+    line-height: 1.3;
+    padding: 0 0.5rem;
+}
+
+.flip-hint {
+    font-size: 0.85rem;
+    color: #666;
+    font-style: italic;
+    margin-top: 1.5rem;
+    padding: 6px 12px;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 20px;
+    font-weight: 400;
+}
+
+/* Back side content - COMPACT LAYOUT */
+.flip-card-back h3 {
+    font-size: 1.3rem; /* Reduced from 1.5rem */
+    margin-bottom: 0.8rem; /* Reduced from 1.2rem */
+    color: white;
+    text-align: center;
+    width: 100%;
+    font-weight: 700;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+    flex-shrink: 0; /* Prevent shrinking */
+}
+
+.flip-card-back p {
+    margin-bottom: 0.8rem; /* Reduced from 1.5rem */
+    line-height: 1.4; /* Reduced from 1.6 */
+    font-weight: 400;
+    font-size: 0.85rem; /* Reduced from 0.95rem */
+    opacity: 0.95;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+/* Flip content layout - COMPACT */
+.flip-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem; /* Reduced from 1.2rem */
+    flex: 1; /* Take available space */
+    min-height: 0; /* Allow shrinking */
+    overflow: hidden; /* Prevent overflow */
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0.6rem; /* Reduced from 0.8rem */
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    border-left: 3px solid var(--irm-yellow);
+    flex-shrink: 0; /* Prevent shrinking */
+}
+
+.stat-number {
+    font-size: 1.6rem; /* Reduced from 2rem */
+    font-weight: 700;
+    color: var(--irm-yellow);
+    line-height: 1;
+    margin-bottom: 0.3rem; /* Reduced from 0.5rem */
+}
+
+.stat-icon {
+    font-size: 1.4rem; /* Reduced from 1.8rem */
+    color: var(--irm-yellow);
+    margin-bottom: 0.3rem; /* Reduced from 0.5rem */
+}
+
+.stat-label {
+    font-size: 0.75rem; /* Reduced from 0.85rem */
+    line-height: 1.2; /* Reduced from 1.4 */
+    font-weight: 400;
+}
+
+.quote {
+    margin-top: 0.3rem; /* Reduced from 0.5rem */
+    padding: 8px 10px; /* Reduced from 12px 15px */
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    font-size: 0.75rem; /* Reduced from 0.85rem */
+    line-height: 1.3; /* Reduced from 1.5 */
+    font-style: italic;
+    border-left: 2px solid var(--irm-yellow);
+    flex-shrink: 0;
+}
+
+.quote i {
+    color: var(--irm-yellow);
+    margin-right: 4px;
+    font-size: 0.8rem;
+}
+
+/* Responsive Design - NO SCROLL VERSION */
+@media (min-width: 992px) {
+    .benefits-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    .flip-card {
+        height: 400px; /* Slightly taller on desktop */
+    }
+}
+
+@media (max-width: 991px) and (min-width: 768px) {
+    .benefits-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .flip-card {
+        height: 380px;
+    }
+}
+
+@media (max-width: 767px) {
+    .benefits-grid {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+    }
+    .flip-card {
+        height: 360px; /* Adjusted for mobile */
+    }
+    .flip-card-front,
+    .flip-card-back {
+        padding: 1.5rem 1rem;
+    }
+    .benefit-icon {
+        width: 70px;
+        height: 70px;
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+    }
+    .benefit-text {
+        font-size: 1.2rem;
+    }
+    .flip-card-back h3 {
+        font-size: 1.2rem;
+    }
+    .stat-number {
+        font-size: 1.4rem;
+    }
+    .stat-label {
+        font-size: 0.7rem;
+    }
+    .quote {
+        font-size: 0.7rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .flip-card {
+        height: 340px;
+    }
+    .benefit-text {
+        font-size: 1.1rem;
+    }
+}
+
+      /* Footer */
+      footer {
+        background: var(--nbi-teal); /* Changed to #005d6a */
+        padding: 3rem 1.5rem 1.5rem;
+        text-align: center;
+        margin-top: auto;
+        color: var(--text-light);
+      }
+
+      .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: left;
+        margin-bottom: 2rem;
+      }
+
+      .footer-column {
+        padding: 0;
+      }
+
+      .footer-column h3 {
+        margin-bottom: 1.5rem;
+        font-size: 1.2rem;
+        position: relative;
+        padding-bottom: 10px;
+        font-weight: 600;
+        min-height: 44px; /* Ensures all column titles align */
+        display: flex;
+        align-items: flex-end;
+      }
+
+      .footer-column h3:after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 40px;
+        height: 2px;
+        background: var(--irm-yellow);
+      }
+
+      .footer-links {
+        list-style: none;
+      }
+
+      .footer-links li {
+        margin-bottom: 10px;
+      }
+
+      .footer-links a {
+        color: #e0e0e0;
+        text-decoration: none;
+        transition: color 0.3s;
+        font-weight: 400;
+      }
+
+      .footer-links a:hover {
+        color: var(--irm-yellow);
+      }
+
+      .social-icons {
+        display: flex;
+        gap: 1rem;
+        margin-top: 0.5rem;
+        flex-wrap: wrap;
+      }
+
+      .social-icon {
+        width: 44px;
+        height: 44px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        transition: all 0.3s ease;
+        font-size: 1.2rem;
+      }
+
+      .social-icon:hover {
+        background: var(--irm-cyan);
+        transform: translateY(-3px);
+      }
+
+      .footer-bottom {
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+        padding-top: 20px;
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.9);
+        margin-top: 2rem;
+      }
+
+      .footer-bottom a {
+        color: var(--irm-yellow);
+        text-decoration: none;
+        margin: 0 10px;
+        transition: color 0.3s;
+        font-weight: 500;
+      }
+
+      .footer-bottom a:hover {
+        color: var(--text-light);
+        text-decoration: underline;
+      }
+
+      footer p {
+        font-size: 0.9rem;
+        font-weight: 300;
+        margin-bottom: 0.5rem;
+        line-height: 1.6;
+      }
+
+      footer a {
+        color: #00bcd4; /* Changed NBI link color to #00bcd4 */
+        text-decoration: none;
+        transition: color 0.3s ease;
+        word-break: break-word;
+        font-weight: 500;
+      }
+
+      footer a:hover {
+        color: var(--irm-yellow);
+        text-decoration: underline;
+      }
+
+      .contact-info {
+        line-height: 1.8;
+      }
+
+      /* Desktop Responsive */
+      @media (min-width: 769px) {
+        .hero {
+          margin-top: 0;
+        }
+
+        .hero-title {
+          font-size: 2.5rem;
+        }
+
+        .hero-subtitle {
+          font-size: 1.3rem;
+        }
+
+        .hero-buttons {
+          flex-direction: row;
+          justify-content: center;
+        }
+
+        .section-intro,
+        .youtube-section,
+        .platforms-container,
+        .why-irm,
+        .user-journey,
+        .testimonials {
+          padding: 5rem 2rem;
+        }
+
+        .section-intro h2,
+        .youtube-container h2,
+        .why-irm h2,
+        .platforms-title,
+        .section-title h2 {
+          font-size: 2.2rem;
+        }
+
+        .section-intro p {
+          font-size: 1.1rem;
+        }
+
+        .platforms-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+
+        .journey-container {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .testimonials-container {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 2.5rem;
         }
 
         .benefits-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.5rem;
-            max-width: 1200px;
-            margin: 0 auto 4rem;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 2rem;
         }
 
         .benefit-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 1.5rem 1rem;
-            border-radius: 8px;
-            background: #f8f9fa;
-            transition: all 0.3s ease;
-        }
-
-        .benefit-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+          padding: 2rem 1rem;
         }
 
         .benefit-icon {
-            width: 60px;
-            height: 60px;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--irm-green), var(--irm-cyan));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            color: white;
+          width: 70px;
+          height: 70px;
+          font-size: 1.8rem;
         }
 
         .benefit-text {
-            font-weight: 600;
-            color: #333;
-            font-size: 1rem;
-        }
-
-        .cta-table-wrapper {
-            width: 100%;
-            overflow-x: auto;
-        }
-
-        .cta-table {
-            width: 100%;
-            max-width: 1000px;
-            margin: 0 auto;
-            border-collapse: collapse;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
-        .cta-table thead {
-            background: linear-gradient(to right, var(--irm-green), var(--irm-cyan));
-            color: var(--text-light);
-        }
-
-        .cta-table th {
-            padding: 1.2rem;
-            text-align: left;
-            font-weight: 600;
-            font-size: 1rem;
-        }
-
-        .cta-table tbody tr {
-            background: var(--text-light);
-            transition: all 0.3s ease;
-        }
-
-        .cta-table tbody tr:nth-child(even) {
-            background: #f8f9fa;
-        }
-
-        .cta-table tbody tr:hover {
-            background: #f1f8f3;
-        }
-
-        .cta-table td {
-            padding: 1.2rem;
-            border-bottom: 1px solid #eee;
-            font-size: 0.9rem;
-            font-weight: 400;
-        }
-
-        .cta-table td:first-child {
-            font-weight: 600;
-            color: #333;
-        }
-
-        .cta-table a {
-            color: var(--irm-cyan);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .cta-table a:hover {
-            color: var(--irm-green);
-            text-decoration: underline;
-        }
-
-        /* Footer */
-        footer {
-            background: var(--nbi-teal); /* Changed to #005d6a */
-            padding: 3rem 1.5rem 1.5rem;
-            text-align: center;
-            margin-top: auto;
-            color: var(--text-light);
+          font-size: 1.1rem;
         }
 
         .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 2rem;
-            text-align: left;
-            margin-bottom: 2rem;
+          grid-template-columns: 2fr 1fr 1.2fr 1fr;
+          gap: 3rem;
+          align-items: start;
         }
 
         .footer-column {
-            padding: 0;
+          min-height: 200px; /* Ensures columns start at same line */
         }
 
-        .footer-column h3 {
-            margin-bottom: 1.5rem;
-            font-size: 1.2rem;
-            position: relative;
-            padding-bottom: 10px;
-            font-weight: 600;
-            min-height: 44px; /* Ensures all column titles align */
-            display: flex;
-            align-items: flex-end;
+        /* Adjust nav for desktop */
+        .logo-container {
+          gap: 20px;
         }
 
-        .footer-column h3:after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 40px;
-            height: 2px;
-            background: var(--irm-yellow);
+        .nav-right-section {
+          gap: 30px;
+        }
+      }
+
+      /* Tablet Responsive */
+      @media (min-width: 481px) and (max-width: 768px) {
+        .hero-buttons {
+          flex-direction: column;
+          align-items: center;
         }
 
-        .footer-links {
-            list-style: none;
+        .hero-cta,
+        .about-irm-btn {
+          width: 80%;
+          max-width: 300px;
         }
 
-        .footer-links li {
-            margin-bottom: 10px;
+        .benefits-grid {
+          grid-template-columns: repeat(2, 1fr);
         }
 
-        .footer-links a {
-            color: #e0e0e0;
-            text-decoration: none;
-            transition: color 0.3s;
-            font-weight: 400;
+        .nav-right-section {
+          gap: 10px;
         }
 
-        .footer-links a:hover {
-            color: var(--irm-yellow);
+        .nbi-logo-container {
+          margin-left: 10px;
+        }
+
+        .testimonials-container {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 1.5rem;
+        }
+
+        .footer-content {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 2rem;
+        }
+
+        .footer-column {
+          min-height: auto;
         }
 
         .social-icons {
-            display: flex;
-            gap: 1rem;
-            margin-top: 0.5rem;
-            flex-wrap: wrap;
+          justify-content: flex-start;
+        }
+      }
+
+      /* Small Mobile */
+      @media (max-width: 480px) {
+        .hero-title {
+          font-size: 1.6rem;
+        }
+
+        .hero-subtitle {
+          font-size: 0.9rem;
+        }
+
+        .hero-buttons {
+          flex-direction: column;
+          gap: 1rem;
+        }
+
+        .hero-cta,
+        .about-irm-btn {
+          padding: 0.8rem 1.5rem;
+          font-size: 0.95rem;
+          width: 100%;
+          max-width: 300px;
+        }
+
+        .section-intro h2,
+        .youtube-container h2,
+        .why-irm h2,
+        .platforms-title,
+        .section-title h2 {
+          font-size: 1.6rem;
+        }
+
+        .benefits-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .platform-features table {
+          font-size: 0.8rem;
+        }
+
+        .cta-table {
+          font-size: 0.8rem;
+        }
+
+        .cta-table th,
+        .cta-table td {
+          padding: 0.8rem;
+        }
+
+        .cta-table th {
+          font-size: 0.95rem;
+        }
+
+        /* Adjust nav for mobile */
+        nav {
+          padding: 1rem;
+        }
+
+        .logo {
+          height: 45px;
+        }
+
+        .nbi-logo {
+          height: 45px;
+        }
+
+        .nav-right-section {
+          gap: 5px;
+        }
+
+        .testimonials-container {
+          grid-template-columns: 1fr;
+        }
+
+        .footer-content {
+          grid-template-columns: 1fr;
+        }
+
+        .footer-column {
+          min-height: auto;
+        }
+
+        .footer-column h3 {
+          min-height: auto;
+          display: block;
+        }
+
+        .social-icons {
+          justify-content: center;
+        }
+      }
+
+      /* Landscape Mobile */
+      @media (max-width: 768px) and (orientation: landscape) {
+        .hero {
+          height: 80vh;
+          margin-top: 0;
+        }
+
+        .nav-links {
+          max-height: 70vh;
+          overflow-y: auto;
+        }
+      }
+
+      /* Extra small devices */
+      @media (max-width: 360px) {
+        .logo {
+          height: 40px;
+        }
+
+        .nbi-logo {
+          height: 40px;
+        }
+
+        .hero-title {
+          font-size: 1.4rem;
+        }
+
+        .hero-subtitle {
+          font-size: 0.85rem;
+        }
+
+        .author-avatar {
+          width: 50px;
+          height: 50px;
         }
 
         .social-icon {
-            width: 44px;
-            height: 44px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            transition: all 0.3s ease;
-            font-size: 1.2rem;
+          width: 40px;
+          height: 40px;
+          font-size: 1.1rem;
         }
-
-        .social-icon:hover {
-            background: var(--irm-cyan);
-            transform: translateY(-3px);
-        }
-
-        .footer-bottom {
-            border-top: 1px solid rgba(255,255,255,0.2);
-            padding-top: 20px;
-            font-size: 0.9rem;
-            color: rgba(255,255,255,0.9);
-            margin-top: 2rem;
-        }
-
-        .footer-bottom a {
-            color: var(--irm-yellow);
-            text-decoration: none;
-            margin: 0 10px;
-            transition: color 0.3s;
-            font-weight: 500;
-        }
-
-        .footer-bottom a:hover {
-            color: var(--text-light);
-            text-decoration: underline;
-        }
-
-        footer p {
-            font-size: 0.9rem;
-            font-weight: 300;
-            margin-bottom: 0.5rem;
-            line-height: 1.6;
-        }
-
-        footer a {
-            color: #00bcd4; /* Changed NBI link color to #00bcd4 */
-            text-decoration: none;
-            transition: color 0.3s ease;
-            word-break: break-word;
-            font-weight: 500;
-        }
-
-        footer a:hover {
-            color: var(--irm-yellow);
-            text-decoration: underline;
-        }
-
-        .contact-info {
-            line-height: 1.8;
-        }
-
-        /* Desktop Responsive */
-        @media (min-width: 769px) {
-            .hero {
-                margin-top: 0;
-            }
-            
-            .hero-title {
-                font-size: 2.5rem;
-            }
-            
-            .hero-subtitle {
-                font-size: 1.3rem;
-            }
-            
-            .hero-buttons {
-                flex-direction: row;
-                justify-content: center;
-            }
-            
-            .section-intro,
-            .youtube-section,
-            .platforms-container,
-            .why-irm,
-            .user-journey,
-            .testimonials {
-                padding: 5rem 2rem;
-            }
-            
-            .section-intro h2,
-            .youtube-container h2,
-            .why-irm h2,
-            .platforms-title,
-            .section-title h2 {
-                font-size: 2.2rem;
-            }
-            
-            .section-intro p {
-                font-size: 1.1rem;
-            }
-            
-            .platforms-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-            
-            .journey-container {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .testimonials-container {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 2.5rem;
-            }
-            
-            .benefits-grid {
-                grid-template-columns: repeat(4, 1fr);
-                gap: 2rem;
-            }
-            
-            .benefit-item {
-                padding: 2rem 1rem;
-            }
-            
-            .benefit-icon {
-                width: 70px;
-                height: 70px;
-                font-size: 1.8rem;
-            }
-            
-            .benefit-text {
-                font-size: 1.1rem;
-            }
-            
-            .footer-content {
-                grid-template-columns: 2fr 1fr 1.2fr 1fr;
-                gap: 3rem;
-                align-items: start;
-            }
-            
-            .footer-column {
-                min-height: 200px; /* Ensures columns start at same line */
-            }
-            
-            /* Adjust nav for desktop */
-            .logo-container {
-                gap: 20px;
-            }
-            
-            .nav-right-section {
-                gap: 30px;
-            }
-        }
-
-        /* Tablet Responsive */
-        @media (min-width: 481px) and (max-width: 768px) {
-            .hero-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .hero-cta,
-            .about-irm-btn {
-                width: 80%;
-                max-width: 300px;
-            }
-            
-            .benefits-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .nav-right-section {
-                gap: 10px;
-            }
-            
-            .nbi-logo-container {
-                margin-left: 10px;
-            }
-            
-            .testimonials-container {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 1.5rem;
-            }
-            
-            .footer-content {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 2rem;
-            }
-            
-            .footer-column {
-                min-height: auto;
-            }
-            
-            .social-icons {
-                justify-content: flex-start;
-            }
-        }
-
-        /* Small Mobile */
-        @media (max-width: 480px) {
-            .hero-title {
-                font-size: 1.6rem;
-            }
-
-            .hero-subtitle {
-                font-size: 0.9rem;
-            }
-
-            .hero-buttons {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            
-            .hero-cta,
-            .about-irm-btn {
-                padding: 0.8rem 1.5rem;
-                font-size: 0.95rem;
-                width: 100%;
-                max-width: 300px;
-            }
-
-            .section-intro h2,
-            .youtube-container h2,
-            .why-irm h2,
-            .platforms-title,
-            .section-title h2 {
-                font-size: 1.6rem;
-            }
-
-            .benefits-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .platform-features table {
-                font-size: 0.8rem;
-            }
-            
-            .cta-table {
-                font-size: 0.8rem;
-            }
-            
-            .cta-table th,
-            .cta-table td {
-                padding: 0.8rem;
-            }
-
-            .cta-table th {
-                font-size: 0.95rem;
-            }
-            
-            /* Adjust nav for mobile */
-            nav {
-                padding: 1rem;
-            }
-            
-            .logo {
-                height: 45px;
-            }
-            
-            .nbi-logo {
-                height: 45px;
-            }
-            
-            .nav-right-section {
-                gap: 5px;
-            }
-            
-            .testimonials-container {
-                grid-template-columns: 1fr;
-            }
-            
-            .footer-content {
-                grid-template-columns: 1fr;
-            }
-            
-            .footer-column {
-                min-height: auto;
-            }
-            
-            .footer-column h3 {
-                min-height: auto;
-                display: block;
-            }
-            
-            .social-icons {
-                justify-content: center;
-            }
-        }
-
-        /* Landscape Mobile */
-        @media (max-width: 768px) and (orientation: landscape) {
-            .hero {
-                height: 80vh;
-                margin-top: 0;
-            }
-            
-            .nav-links {
-                max-height: 70vh;
-                overflow-y: auto;
-            }
-        }
-
-        /* Extra small devices */
-        @media (max-width: 360px) {
-            .logo {
-                height: 40px;
-            }
-            
-            .nbi-logo {
-                height: 40px;
-            }
-            
-            .hero-title {
-                font-size: 1.4rem;
-            }
-            
-            .hero-subtitle {
-                font-size: 0.85rem;
-            }
-            
-            .author-avatar {
-                width: 50px;
-                height: 50px;
-            }
-            
-            .social-icon {
-                width: 40px;
-                height: 40px;
-                font-size: 1.1rem;
-            }
-        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <!-- Navigation -->
     <nav>
-        <div class="logo-container">
-            <img src="images/irm.png" alt="IRMHub Logo" class="logo">
+      <div class="logo-container">
+        <img src="images/irm.png" alt="IRMHub Logo" class="logo" />
+      </div>
+      <div class="nav-right-section">
+        <div class="nbi-logo-container">
+          <a href="https://www.nbi.org.za/" target="_blank">
+            <img
+              src="images/nbi.jpg"
+              alt="National Business Initiative Logo"
+              class="nbi-logo"
+            />
+          </a>
         </div>
-        <div class="nav-right-section">
-            <div class="nbi-logo-container">
-                <a href="https://www.nbi.org.za/" target="_blank">
-                    <img src="images/nbi.jpg" alt="National Business Initiative Logo" class="nbi-logo">
-                </a>
-            </div>
-            <button class="menu-toggle" id="menuToggle">
-                <i class="fas fa-bars"></i>
-            </button>
-        </div>
-        <ul class="nav-links" id="navLinks">
-            <li><a href="#journey">Find Your Path</a></li>
-            <li><a href="#platforms">Our Platforms</a></li>
-            <li><a href="#testimonials">Success Stories</a></li>
-            <li><a href="#about">About</a></li>
-        </ul>
+        <button class="menu-toggle" id="menuToggle">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#journey">Find Your Path</a></li>
+        <li><a href="#platforms">Our Platforms</a></li>
+        <li><a href="#testimonials">Success Stories</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
     </nav>
 
     <!-- Hero Section -->
     <section class="hero" id="home">
-        <div class="hero-content">
-            <h1 class="hero-title">About IRM Initiative</h1>
-            <p class="hero-subtitle">
-                The Installation, Repair and Maintenance (IRM) Initiative, an Initiative by the 
-                <a href="https://www.nbi.org.za/" target="_blank">National Business Initiative (NBI)</a> 
-                is a coordinated effort to drive inclusive economic development by strengthening local 
-                enterprises and developing critical skills, we have developed digital tools to guide you on your journey.
-            </p>
-            <div class="hero-buttons">
-                <a href="#journey" class="hero-cta">Find Your Path</a>
-                <a href="https://www.nbi.org.za/" target="_blank" class="about-irm-btn">About IRM</a>
-            </div>
+      <div class="hero-content">
+        <h1 class="hero-title">About IRM Initiative</h1>
+        <p class="hero-subtitle">
+          The Installation, Repair and Maintenance (IRM) Initiative, an
+          Initiative by the
+          <a href="https://www.nbi.org.za/" target="_blank"
+            >National Business Initiative (NBI)</a
+          >
+          is a coordinated effort to drive inclusive economic development by
+          strengthening local enterprises and developing critical skills, we
+          have developed digital tools to guide you on your journey.
+        </p>
+        <div class="hero-buttons">
+          <a href="#journey" class="hero-cta">Find Your Path</a>
+          <a
+            href="https://www.nbi.org.za/"
+            target="_blank"
+            class="about-irm-btn"
+            >About IRM</a
+          >
         </div>
+      </div>
     </section>
 
     <!-- User Journey Section -->
     <div id="journey" class="user-journey">
-        <div class="section-title">
-            <h2>What Are You Looking For?</h2>
-            <p>Tell us about yourself and we'll guide you to the right resources</p>
+      <div class="section-title">
+        <h2>What Are You Looking For?</h2>
+        <p>Tell us about yourself and we'll guide you to the right resources</p>
+      </div>
+      <div class="journey-container">
+        <div class="journey-card">
+          <div class="journey-image">
+            <img src="images/artisan.jpg" alt="Artisans and Technicians" />
+          </div>
+          <div class="journey-content">
+            <h3>I'm an Artisan or Technician</h3>
+            <p>
+              Looking to upgrade my skills, get certified, or find better job
+              opportunities in installation, repair and maintenance fields.
+            </p>
+            <a href="https://www.irmlearning.co.za" class="journey-cta"
+              >Find Skills & Training</a
+            >
+          </div>
         </div>
-        <div class="journey-container">
-            <div class="journey-card">
-                <div class="journey-image">
-                    <img src="images/artisan.jpg" alt="Artisans and Technicians">
-                </div>
-                <div class="journey-content">
-                    <h3>I'm an Artisan or Technician</h3>
-                    <p>Looking to upgrade my skills, get certified, or find better job opportunities in installation, repair and maintenance fields.</p>
-                    <a href="https://www.irmlearning.co.za" class="journey-cta">Find Skills & Training</a>
-                </div>
-            </div>
-            <div class="journey-card">
-                <div class="journey-image">
-                    <img src="images/sme.jpg" alt="SMEs and Entrepreneurs">
-                </div>
-                <div class="journey-content">
-                    <h3>I'm an SME or Entrepreneur</h3>
-                    <p>Seeking business development support, market opportunities, or partnerships to grow my IRM enterprise.</p>
-                    <a href="https://www.irmhub.org.za" class="journey-cta">Grow My Business</a>
-                </div>
-            </div>
-            <div class="journey-card">
-                <div class="journey-image">
-                    <img src="images/student.jpg" alt="TVET Students and Graduates">
-                </div>
-                <div class="journey-content">
-                    <h3>I'm a TVET Student or Graduate</h3>
-                    <p>Looking for workplace experience, further training opportunities, or guidance on starting my career in technical fields.</p>
-                    <a href="https://www.irmlearning.co.za" class="journey-cta">Explore Career Paths</a>
-                </div>
-            </div>
-            <div class="journey-card">
-                <div class="journey-image">
-                    <img src="images/goverment.jpg" alt="Industry and Government">
-                </div>
-                <div class="journey-content">
-                    <h3>I'm from Industry or Government</h3>
-                    <p>Interested in partnering, sourcing services, or supporting the development of the IRM ecosystem.</p>
-                    <a href="mailto:info@nbi.org.za" class="journey-cta">Partner With Us</a>
-                </div>
-            </div>
+        <div class="journey-card">
+          <div class="journey-image">
+            <img src="images/sme.jpg" alt="SMEs and Entrepreneurs" />
+          </div>
+          <div class="journey-content">
+            <h3>I'm an SME or Entrepreneur</h3>
+            <p>
+              Seeking business development support, market opportunities, or
+              partnerships to grow my IRM enterprise.
+            </p>
+            <a href="https://www.irmhub.org.za" class="journey-cta"
+              >Grow My Business</a
+            >
+          </div>
         </div>
+        <div class="journey-card">
+          <div class="journey-image">
+            <img src="images/student.jpg" alt="TVET Students and Graduates" />
+          </div>
+          <div class="journey-content">
+            <h3>I'm a TVET Student or Graduate</h3>
+            <p>
+              Looking for workplace experience, further training opportunities,
+              or guidance on starting my career in technical fields.
+            </p>
+            <a href="https://www.irmlearning.co.za" class="journey-cta"
+              >Explore Career Paths</a
+            >
+          </div>
+        </div>
+        <div class="journey-card">
+          <div class="journey-image">
+            <img src="images/goverment.jpg" alt="Industry and Government" />
+          </div>
+          <div class="journey-content">
+            <h3>I'm from Industry or Government</h3>
+            <p>
+              Interested in partnering, sourcing services, or supporting the
+              development of the IRM ecosystem.
+            </p>
+            <a href="mailto:info@nbi.org.za" class="journey-cta"
+              >Partner With Us</a
+            >
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Section Intro -->
     <section class="section-intro">
-        <h2>EMPOWERING THE FUTURE OF SOUTH AFRICA'S IRM SECTORS</h2>
-        <p>The National Business Initiative, Installation, Repair, and Maintenance (IRM) Initiative is a coordinated effort to drive inclusive economic development by strengthening local enterprises and developing critical skills, with a strong focus on the <strong>Green and Circular Economy</strong>. Our digital ecosystem connects learners, artisans, SMEs, and industry partners to the tools, knowledge, and opportunities they need to thrive.</p>
+      <h2>EMPOWERING THE FUTURE OF SOUTH AFRICA'S IRM SECTORS</h2>
+      <p>
+        The National Business Initiative, Installation, Repair, and Maintenance
+        (IRM) Initiative is a coordinated effort to drive inclusive economic
+        development by strengthening local enterprises and developing critical
+        skills, with a strong focus on the
+        <strong>Green and Circular Economy</strong>. Our digital ecosystem
+        connects learners, artisans, SMEs, and industry partners to the tools,
+        knowledge, and opportunities they need to thrive.
+      </p>
     </section>
 
     <!-- YouTube Video Section -->
     <div id="video" class="youtube-section">
-        <div class="youtube-container">
-            <h2>Our Initiative in Action</h2>
-            <div class="video-wrapper">
-                <iframe 
-                    id="youtubeVideo"
-                    src="https://www.youtube.com/embed/jKpxehVWJh4?enablejsapi=1&rel=0&modestbranding=1"
-                    title="NBI IRM Initiative Video" 
-                    frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" 
-                    allowfullscreen
-                    loading="lazy"
-                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 10px; border: none;">
-                </iframe>
-            </div>
-            <div id="videoFallback" style="display: none; margin-top: 20px; padding: 20px; background: #f8f9fa; border-radius: 10px;">
-                <p>Having trouble viewing the video? <a href="https://www.youtube.com/watch?v=jKpxehVWJh4" target="_blank">Watch it directly on YouTube</a></p>
-            </div>        
+      <div class="youtube-container">
+        <h2>Our Initiative in Action</h2>
+        <div class="video-wrapper">
+          <iframe
+            id="youtubeVideo"
+            src="https://www.youtube.com/embed/jKpxehVWJh4?enablejsapi=1&rel=0&modestbranding=1"
+            title="NBI IRM Initiative Video"
+            frameborder="0"
+            allow="
+              accelerometer;
+              autoplay;
+              clipboard-write;
+              encrypted-media;
+              gyroscope;
+              picture-in-picture;
+              web-share;
+              fullscreen;
+            "
+            allowfullscreen
+            loading="lazy"
+            style="
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              border-radius: 10px;
+              border: none;
+            "
+          >
+          </iframe>
         </div>
+        <div
+          id="videoFallback"
+          style="
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+          "
+        >
+          <p>
+            Having trouble viewing the video?
+            <a
+              href="https://www.youtube.com/watch?v=jKpxehVWJh4"
+              target="_blank"
+              >Watch it directly on YouTube</a
+            >
+          </p>
+        </div>
+      </div>
     </div>
 
     <!-- Platforms Section -->
     <section id="platforms" class="platforms-container">
-        <h2 class="platforms-title">Our Digital Platforms</h2>
-        <div class="platforms-grid">
-            <div class="platform-card">
-                <div class="platform-icon"><i class="fas fa-graduation-cap"></i></div>
-                <h3 class="platform-title">THE SKILLS & LEARNING PLATFORM:</h3>
-                <a href="https://www.irmlearning.co.za" class="platform-url">irmlearning.co.za</a>
-                
-                <div class="platform-features">
-                    <table>
-                        <thead><tr><th>Features</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td>Industry-aligned Courses</td><td>TVET-aligned courses in high-demand trades.</td></tr>
-                            <tr><td>Blended Learning</td><td>Mix of online and in-person learning resources.</td></tr>
-                            <tr><td>Certifications</td><td>Achieve recognised certification.</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-                <a href="https://www.irmlearning.co.za" class="btn btn-learning">Explore Platform</a>
-            </div>
+      <h2 class="platforms-title">Our Digital Platforms</h2>
+      <div class="platforms-grid">
+        <div class="platform-card">
+          <div class="platform-icon"><i class="fas fa-graduation-cap"></i></div>
+          <h3 class="platform-title">THE SKILLS & LEARNING PLATFORM:</h3>
+          <a href="https://www.irmlearning.co.za" class="platform-url"
+            >irmlearning.co.za</a
+          >
 
-            <div class="platform-card">
-                <div class="platform-icon"><i class="fas fa-briefcase"></i></div>
-                <h3 class="platform-title">THE ENTREPRISE & OPPORTUNITY HUB:</h3>
-                <a href="https://www.irmhub.org.za" class="platform-url">irmhub.org.za</a>
-                
-                <div class="platform-features">
-                    <table>
-                        <thead><tr><th>Features</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td>SME Support</td><td>Tools, mentorship, and resources for business growth.</td></tr>
-                            <tr><td>Market Linkages</td><td>View and bid on IRM-related contracts.</td></tr>
-                            <tr><td>Partnership Building</td><td>Network with clients and industry stakeholders.</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-                <a href="https://www.irmhub.org.za" class="btn btn-hub">Explore Platform</a>
-            </div>
-
-            <div class="platform-card">
-                <div class="platform-icon"><i class="fas fa-leaf"></i></div>
-                <h3 class="platform-title">THE GREEN ECONOMY TOOLKIT:</h3>
-                <a href="https://greeneconomytoolkit.com" class="platform-url">greeneconomytoolkit.com</a>
-                
-                <div class="platform-features">
-                    <table>
-                        <thead><tr><th>Features</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td>Green Practices Guides</td><td>Step-by-step guides on getting involved</td></tr>
-                            <tr><td>Green Economy Events</td><td>Keep up to date with green economy events.</td></tr>
-                            <tr><td>Policy & Compliance Info</td><td>Updates on green policies and standards.</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-                <a href="https://greeneconomytoolkit.com" class="btn btn-toolkit">Explore Platform</a>
-            </div>
+          <div class="platform-features">
+            <table>
+              <thead>
+                <tr>
+                  <th>Features</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Industry-aligned Courses</td>
+                  <td>TVET-aligned courses in high-demand trades.</td>
+                </tr>
+                <tr>
+                  <td>Blended Learning</td>
+                  <td>Mix of online and in-person learning resources.</td>
+                </tr>
+                <tr>
+                  <td>Certifications</td>
+                  <td>Achieve recognised certification.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <a href="https://www.irmlearning.co.za" class="btn btn-learning"
+            >Explore Platform</a
+          >
         </div>
+
+        <div class="platform-card">
+          <div class="platform-icon"><i class="fas fa-briefcase"></i></div>
+          <h3 class="platform-title">THE SMME & OPPORTUNITY HUB:</h3>
+          <a href="https://portal.irmhub.org.za" class="platform-url"
+            >portal.irmhub.org.za</a
+          >
+
+          <div class="platform-features">
+            <table>
+              <thead>
+                <tr>
+                  <th>Features</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>SME Support</td>
+                  <td>Tools, mentorship, and resources for business growth.</td>
+                </tr>
+                <tr>
+                  <td>Market Linkages</td>
+                  <td>View and bid on IRM-related contracts.</td>
+                </tr>
+                <tr>
+                  <td>Partnership Building</td>
+                  <td>Network with clients and industry stakeholders.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <a href="https://portal.irmhub.org.za" class="btn btn-hub"
+            >Visit Portal</a
+          >
+        </div>
+
+        <div class="platform-card">
+          <div class="platform-icon"><i class="fas fa-leaf"></i></div>
+          <h3 class="platform-title">THE GREEN ECONOMY TOOLKIT:</h3>
+          <a href="https://greeneconomytoolkit.com" class="platform-url"
+            >greeneconomytoolkit.com</a
+          >
+
+          <div class="platform-features">
+            <table>
+              <thead>
+                <tr>
+                  <th>Features</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Green Funding Platform</td>
+                  <td>Access information on Green Finance</td>
+                </tr>
+                <tr>
+                  <td>Green Economy Events</td>
+                  <td>Keep up to date with green economy events.</td>
+                </tr>
+                <tr>
+                  <td>Policy & Compliance Info</td>
+                  <td>Updates on green policies and standards.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <a href="https://greeneconomytoolkit.com" class="btn btn-toolkit"
+            >Explore Platform</a
+          >
+        </div>
+      </div>
     </section>
 
     <!-- Testimonials Section -->
     <div id="testimonials" class="testimonials">
-        <div class="section-title">
-            <h2>Success Stories</h2>
-            <p>Hear from people who have transformed their careers and businesses through the IRM Initiative</p>
-        </div>
-        <div class="testimonials-container">
-            <div class="testimonial-card">
+      <div class="section-title">
+        <h2>Success Stories</h2>
+        <p>
+          Hear from people who have transformed their careers and businesses
+          through the IRM Initiative
+        </p>
+      </div>
+      <div class="testimonial-carousel">
+
+                <div class="testimonial-track">
+
+                    <div class="testimonial-card">
                 <div class="testimonial-text">
                     "The IRM Learning platform helped me get certified as an electrician. I now have my own small business and employ two other people."
                 </div>
@@ -1465,6 +1853,8 @@
                     </div>
                 </div>
             </div>
+            
+            <!-- CARD 2 -->
             <div class="testimonial-card">
                 <div class="testimonial-text">
                     "Through the IRM Hub, I connected with major contractors and grew my plumbing business from 3 to 15 employees in just two years."
@@ -1479,20 +1869,24 @@
                     </div>
                 </div>
             </div>
+            
+            <!-- CARD 3 -->
             <div class="testimonial-card">
                 <div class="testimonial-text">
-                    "As a TVET graduate, the IRM Initiative provided me with the workplace experience I needed to secure a permanent position at a major manufacturing company."
+                    "I must say it has been a great journey with NBI, NBI has helped shape my company to the right direction. The workshops were very fundamental because they taught us about laws and regulations and even opened our eyes to the green economy."
                 </div>
                 <div class="testimonial-author">
                     <div class="author-avatar">
-                        <img src="images/imgplaceholder.jpg" alt="Sipho Jacobs">
+                        <img src="images/imgplaceholder.jpg" alt="Karabo Modise">
                     </div>
                     <div class="author-info">
-                        <h4>Sipho Jacobs</h4>
-                        <p>Maintenance Technician</p>
+                        <h4>Karabo Modise</h4>
+                        <p>Director: Wood Dream</p>
                     </div>
                 </div>
             </div>
+            
+            <!-- CARD 4 -->
             <div class="testimonial-card">
                 <div class="testimonial-text">
                     "The Green Economy Toolkit helped my company transition to sustainable practices, reducing our energy costs by 40% while attracting environmentally conscious clients."
@@ -1507,211 +1901,462 @@
                     </div>
                 </div>
             </div>
-        </div>
+
+            <!-- CARD 5 -->
+                <div class="testimonial-card">
+                <div class="testimonial-text">
+                    "The IRM Learning platform helped me get certified as an electrician. I now have my own small business and employ two other people."
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-avatar">
+                        <img src="images/imgplaceholder.jpg" alt="Thabo Mokoena">
+                    </div>
+                    <div class="author-info">
+                        <h4>Thabo Mokoena</h4>
+                        <p>Electrician & Business Owner</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- CARD 6 -->
+            <div class="testimonial-card">
+                <div class="testimonial-text">
+                    "Through the IRM Hub, I connected with major contractors and grew my plumbing business from 3 to 15 employees in just two years."
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-avatar">
+                        <img src="images/imgplaceholder.jpg" alt="Nomsa Dlamini">
+                    </div>
+                    <div class="author-info">
+                        <h4>Nomsa Dlamini</h4>
+                        <p>Plumbing Enterprise Owner</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- CARD 7 -->
+            <div class="testimonial-card">
+                <div class="testimonial-text">
+                    "I must say it has been a great journey with NBI, NBI has helped shape my company to the right direction. The workshops were very fundamental because they taught us about laws and regulations and even opened our eyes to the green economy."
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-avatar">
+                        <img src="images/imgplaceholder.jpg" alt="Karabo Modise">
+                    </div>
+                    <div class="author-info">
+                        <h4>Karabo Modise</h4>
+                        <p>Director: Wood Dream</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- CARD 8 -->
+            <div class="testimonial-card">
+                <div class="testimonial-text">
+                    "The Green Economy Toolkit helped my company transition to sustainable practices, reducing our energy costs by 40% while attracting environmentally conscious clients."
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-avatar">
+                        <img src="images/imgplaceholder.jpg" alt="Kabelo Mthethwa">
+                    </div>
+                    <div class="author-info">
+                        <h4>Kabelo Mthethwa</h4>
+                        <p>Sustainability Manager</p>
+                    </div>
+                </div>
+            </div>
     </div>
 
     <!-- Why IRM Section -->
     <section class="why-irm" id="about">
-        <h2>Why the IRM Initiative?</h2>
-        
-        <div class="benefits-grid">
-            <div class="benefit-item">
-                <div class="benefit-icon"><i class="fas fa-briefcase"></i></div>
-                <div class="benefit-text">Job Creation</div>
-            </div>
-            <div class="benefit-item">
-                <div class="benefit-icon"><i class="fas fa-map-marker-alt"></i></div>
-                <div class="benefit-text">Economic Localisation</div>
-            </div>
-            <div class="benefit-item">
-                <div class="benefit-icon"><i class="fas fa-recycle"></i></div>
-                <div class="benefit-text">Sustainability</div>
-            </div>
-            <div class="benefit-item">
-                <div class="benefit-icon"><i class="fas fa-chart-line"></i></div>
-                <div class="benefit-text">Skills Development</div>
+    <h2>Why the IRM Initiative?</h2>
+    
+    <div class="benefits-grid">
+        <!-- Job Creation Flip Card -->
+        <div class="flip-card">
+            <div class="flip-card-inner">
+                <!-- FRONT SIDE -->
+                <div class="flip-card-front">
+                    <div class="benefit-icon"><i class="fas fa-briefcase"></i></div>
+                    <div class="benefit-text">Job Creation</div>
+                    <div class="flip-hint">Tell me more</div>
+                </div>
+                <!-- BACK SIDE -->
+                <div class="flip-card-back">
+                    <h3>Job Creation</h3>                
+                    <div class="flip-content">
+                        <div class="stat-item">
+                            <span class="stat-number">30,000</span>
+                            <span class="stat-label">IRM graduates in employment or self-employment by 2035</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">1-2</span>
+                            <span class="stat-label">Jobs created per supported SMME within 18 months</span>
+                        </div>
+                        <div class="quote">
+                            <i class="fas fa-quote-left"></i>
+                            "One of the most powerful ways to boost job creation is to support the growth of SMMEs."
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         
-        <div class="cta-table-wrapper">
-            <table class="cta-table">
-                <thead>
-                    <tr>
-                        <th>How Can I Get Involved?</th>
-                        <th>How to Get Started</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Artisans & Technicians</td>
-                        <td><a href="https://www.irmlearning.co.za">Visit IRM Learning</a> to gain skills and technical support</td>
-                    </tr>
-                    <tr>
-                        <td>SMEs & Entrepreneurs</td>
-                        <td><a href="https://www.irmhub.org.za">Visit IRM Hub</a> to grow and develop your business</td>
-                    </tr>
-                    <tr>
-                        <td>Industry & Government</td>
-                        <td><a href="mailto:info@nbi.org.za">Contact NBI</a> to partner with us</td>
-                    </tr>
-                </tbody>
-            </table>
+        <!-- Economic Inclusion Flip Card -->
+        <div class="flip-card">
+            <div class="flip-card-inner">
+                <!-- FRONT SIDE -->
+                <div class="flip-card-front">
+                    <div class="benefit-icon"><i class="fas fa-users"></i></div>
+                    <div class="benefit-text">Economic Inclusion</div>
+                    <div class="flip-hint">Tell me more</div>
+                </div>
+                <!-- BACK SIDE -->
+                <div class="flip-card-back">
+                    <h3>Economic Inclusion</h3>
+                    <div class="flip-content">
+                        <div class="stat-item">
+                            <span class="stat-number">98.5%</span>
+                            <span class="stat-label">SMMEs represent registered businesses in South Africa</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">4,200</span>
+                            <span class="stat-label">IRM startup businesses to be incubated by 2035</span>
+                        </div>
+                        <div class="quote">
+                            <i class="fas fa-quote-left"></i>
+                            "SMMEs are the economy's room... we must work collectively towards a thriving and equitable South Africa."
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </section>
+        
+        <!-- Sustainability Flip Card -->
+        <div class="flip-card">
+            <div class="flip-card-inner">
+                <!-- FRONT SIDE -->
+                <div class="flip-card-front">
+                    <div class="benefit-icon"><i class="fas fa-leaf"></i></div>
+                    <div class="benefit-text">Sustainability</div>
+                    <div class="flip-hint">Tell me more</div>
+                </div>
+                <!-- BACK SIDE -->
+                <div class="flip-card-back">
+                    <h3>Sustainability</h3>
+                    <div class="flip-content">
+                        <div class="stat-item">
+                            <span class="stat-icon"><i class="fas fa-bolt"></i></span>
+                            <span class="stat-label">Demand for climate-friendly infrastructure adaptation</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Interactive Green Economy Toolkit for businesses</span>
+                        </div>
+                        <div class="quote">
+                            <i class="fas fa-quote-left"></i>
+                            "To ensure a just economic transition to a green economy, we need to create decent work opportunities."
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Skills Development Flip Card -->
+        <div class="flip-card">
+            <div class="flip-card-inner">
+                <!-- FRONT SIDE -->
+                <div class="flip-card-front">
+                    <div class="benefit-icon"><i class="fas fa-graduation-cap"></i></div>
+                    <div class="benefit-text">Skills Development</div>
+                    <div class="flip-hint">Tell me more</div>
+                </div>
+                <!-- BACK SIDE -->
+                <div class="flip-card-back">
+                    <h3>Skills Development</h3>
+                    <div class="flip-content">
+                        <div class="stat-item">
+                            <span class="stat-number">13</span>
+                            <span class="stat-label">IRM hubs at TVET college campuses</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">50</span>
+                            <span class="stat-label">IRM skill centers by 2035</span>
+                        </div>
+                        <div class="quote">
+                            <i class="fas fa-quote-left"></i>
+                            "Increasing the pool of people with artisanal skills which are already scarce."
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+           
+    <!-- Keep your existing CTA table here -->
+    <div class="cta-table-wrapper">
+        <table class="cta-table">
+            <!-- ... your existing table content ... -->
+        </table>
+    </div>
+</section>
 
     <!-- Footer -->
     <footer>
-        <div class="footer-content">
-            <div class="footer-column">
-                <h3>About IRM Initiative</h3>
-                <p>
-                    The Installation, Repair and Maintenance (IRM) Initiative, an Initiative by the 
-                    <a href="https://www.nbi.org.za/" target="_blank">National Business Initiative (NBI)</a> 
-                    is a coordinated effort to drive inclusive economic development by strengthening local 
-                    enterprises and developing critical skills, we have developed digital tools to guide you on your journey.
-                </p>
-            </div>
-            <div class="footer-column">
-                <h3>Find your Path</h3>
-                <ul class="footer-links">
-                    <li><a href="#journey">Find Your Path</a></li>
-                    <li><a href="https://www.irmlearning.co.za">Skills & Learning</a></li>
-                    <li><a href="https://www.irmhub.org.za">IRM Enterprise Hub</a></li>
-                    <li><a href="https://greeneconomytoolkit.com">Green Economy Toolkit</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h3>Contact Us</h3>
-                <div class="contact-info">
-                    <p><strong>Phone:</strong> +27 (11) 544 6000</p>
-                    <p><strong>E-mail:</strong> <a href="mailto:info@nbi.org.za">info@nbi.org.za</a></p>
-                    <p><strong>Address:</strong><br>
-                    5th Floor, 61 Katherine Street,<br>
-                    Dennehof, Sandton, 2196</p>
-                </div>
-            </div>
-            <div class="footer-column">
-                <h3>Socials</h3>
-                <div class="social-icons">
-                    <a href="https://www.linkedin.com/company/national-business-initiative/" target="_blank" class="social-icon" title="LinkedIn">
-                        <i class="fab fa-linkedin-in"></i>
-                    </a>
-                    <a href="https://www.facebook.com/NationalBusinessInitiative" target="_blank" class="social-icon" title="Facebook">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a href="https://twitter.com/nbisa" target="_blank" class="social-icon" title="X (Twitter)">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                    <a href="https://www.youtube.com/channel/UCN8rs89f_5OL0HXCum4QL1w" target="_blank" class="social-icon" title="YouTube">
-                        <i class="fab fa-youtube"></i>
-                    </a>
-                </div>
-            </div>
+      <div class="footer-content">
+        <div class="footer-column">
+          <h3>About IRM Initiative</h3>
+          <p>
+            The Installation, Repair and Maintenance (IRM) Initiative, an
+            Initiative by the
+            <a href="https://www.nbi.org.za/" target="_blank"
+              >National Business Initiative (NBI)</a
+            >
+            is a coordinated effort to drive inclusive economic development by
+            strengthening local enterprises and developing critical skills, we
+            have developed digital tools to guide you on your journey.
+          </p>
         </div>
-        <div class="footer-bottom">
-            <p>© 2025 IRM Initiative. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
-            <p>Powered by <a href="https://www.nbi.org.za/" target="_blank">National Business Initiative</a></p>
+        <div class="footer-column">
+          <h3>Find your Path</h3>
+          <ul class="footer-links">
+            <li><a href="#journey">Find Your Path</a></li>
+            <li>
+              <a href="https://www.irmlearning.co.za">Skills & Learning</a>
+            </li>
+            <li><a href="https://www.irmhub.org.za">IRM Enterprise Hub</a></li>
+            <li>
+              <a href="https://greeneconomytoolkit.com"
+                >Green Economy Toolkit</a
+              >
+            </li>
+          </ul>
         </div>
+        <div class="footer-column">
+          <h3>Contact Us</h3>
+          <div class="contact-info">
+            <p><strong>Phone:</strong> +27 (11) 544 6000</p>
+            <p>
+              <strong>E-mail:</strong>
+              <a href="mailto:info@nbi.org.za">info@nbi.org.za</a>
+            </p>
+            <p>
+              <strong>Address:</strong><br />
+              5th Floor, 61 Katherine Street,<br />
+              Dennehof, Sandton, 2196
+            </p>
+          </div>
+        </div>
+        <div class="footer-column">
+          <h3>Socials</h3>
+          <div class="social-icons">
+            <a
+              href="https://www.linkedin.com/company/national-business-initiative/"
+              target="_blank"
+              class="social-icon"
+              title="LinkedIn"
+            >
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a
+              href="https://www.facebook.com/NationalBusinessInitiative"
+              target="_blank"
+              class="social-icon"
+              title="Facebook"
+            >
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a
+              href="https://twitter.com/nbisa"
+              target="_blank"
+              class="social-icon"
+              title="X (Twitter)"
+            >
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a
+              href="https://www.youtube.com/channel/UCN8rs89f_5OL0HXCum4QL1w"
+              target="_blank"
+              class="social-icon"
+              title="YouTube"
+            >
+              <i class="fab fa-youtube"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>
+          © 2025 IRM Initiative. All rights reserved. |
+          <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
+        </p>
+        <p>
+          Powered by
+          <a href="https://www.nbi.org.za/" target="_blank"
+            >National Business Initiative</a
+          >
+        </p>
+      </div>
     </footer>
 
     <script>
-        // Mobile menu toggle functionality
-        const menuToggle = document.getElementById('menuToggle');
-        const navLinks = document.getElementById('navLinks');
-        
-        menuToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            
-            // Change icon based on menu state
-            const icon = menuToggle.querySelector('i');
-            if (navLinks.classList.contains('active')) {
-                icon.classList.remove('fa-bars');
-                icon.classList.add('fa-times');
-            } else {
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
-            }
-        });
-        
-        // Close menu when clicking on a link
-        const navItems = document.querySelectorAll('.nav-links a');
-        navItems.forEach(item => {
-            item.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-                const icon = menuToggle.querySelector('i');
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
-            });
-        });
-        
-        // Close menu when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!navLinks.contains(e.target) && !menuToggle.contains(e.target)) {
-                navLinks.classList.remove('active');
-                const icon = menuToggle.querySelector('i');
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
-            }
-        });
+      // Mobile menu toggle functionality
+      const menuToggle = document.getElementById("menuToggle");
+      const navLinks = document.getElementById("navLinks");
 
-        // YouTube Video Enhancement with Fallback
-        function enhanceYouTubeEmbed() {
-            const videoIframe = document.getElementById('youtubeVideo');
-            const fallbackDiv = document.getElementById('videoFallback');
-            
-            if (!videoIframe) return;
-            
-            // Get current origin for dynamic origin parameter
-            const currentOrigin = window.location.origin || 'https://irmhub.vercel.app';
-            
-            // Update iframe src with enhanced parameters
-            const videoId = 'jKpxehVWJh4';
-            const enhancedSrc = `https://www.youtube.com/embed/${videoId}?enablejsapi=1&origin=${encodeURIComponent(currentOrigin)}&rel=0&modestbranding=1`;
-            
-            videoIframe.src = enhancedSrc;
-            
-            console.log('YouTube embed enhanced with origin:', currentOrigin);
-            
-            // Add error handling for the iframe
-            videoIframe.addEventListener('error', () => {
-                console.error('YouTube embed failed to load');
-                fallbackDiv.style.display = 'block';
-            });
-            
-            // Check if iframe loaded successfully after 5 seconds
-            setTimeout(() => {
-                try {
-                    const iframeDoc = videoIframe.contentDocument || videoIframe.contentWindow.document;
-                    if (!iframeDoc || iframeDoc.readyState === 'complete') {
-                        console.log('YouTube embed loaded successfully');
-                    }
-                } catch (e) {
-                    // Cross-origin restriction - this is normal for YouTube embeds
-                    console.log('YouTube embed is loading (cross-origin restrictions prevent full verification)');
-                }
-            }, 5000);
+      menuToggle.addEventListener("click", () => {
+        navLinks.classList.toggle("active");
+
+        // Change icon based on menu state
+        const icon = menuToggle.querySelector("i");
+        if (navLinks.classList.contains("active")) {
+          icon.classList.remove("fa-bars");
+          icon.classList.add("fa-times");
+        } else {
+          icon.classList.remove("fa-times");
+          icon.classList.add("fa-bars");
         }
+      });
 
-        // Initialize YouTube enhancement when DOM is loaded
-        document.addEventListener('DOMContentLoaded', enhanceYouTubeEmbed);
-        
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 70,
-                        behavior: 'smooth'
-                    });
-                }
-            });
+      // Close menu when clicking on a link
+      const navItems = document.querySelectorAll(".nav-links a");
+      navItems.forEach((item) => {
+        item.addEventListener("click", () => {
+          navLinks.classList.remove("active");
+          const icon = menuToggle.querySelector("i");
+          icon.classList.remove("fa-times");
+          icon.classList.add("fa-bars");
         });
+      });
+
+      // Close menu when clicking outside
+      document.addEventListener("click", (e) => {
+        if (!navLinks.contains(e.target) && !menuToggle.contains(e.target)) {
+          navLinks.classList.remove("active");
+          const icon = menuToggle.querySelector("i");
+          icon.classList.remove("fa-times");
+          icon.classList.add("fa-bars");
+        }
+      });
+
+      // YouTube Video Enhancement with Fallback
+      function enhanceYouTubeEmbed() {
+        const videoIframe = document.getElementById("youtubeVideo");
+        const fallbackDiv = document.getElementById("videoFallback");
+
+        if (!videoIframe) return;
+
+        // Get current origin for dynamic origin parameter
+        const currentOrigin =
+          window.location.origin || "https://irmhub.vercel.app";
+
+        // Update iframe src with enhanced parameters
+        const videoId = "jKpxehVWJh4";
+        const enhancedSrc = `https://www.youtube.com/embed/${videoId}?enablejsapi=1&origin=${encodeURIComponent(currentOrigin)}&rel=0&modestbranding=1`;
+
+        videoIframe.src = enhancedSrc;
+
+        console.log("YouTube embed enhanced with origin:", currentOrigin);
+
+        // Add error handling for the iframe
+        videoIframe.addEventListener("error", () => {
+          console.error("YouTube embed failed to load");
+          fallbackDiv.style.display = "block";
+        });
+
+        // Check if iframe loaded successfully after 5 seconds
+        setTimeout(() => {
+          try {
+            const iframeDoc =
+              videoIframe.contentDocument || videoIframe.contentWindow.document;
+            if (!iframeDoc || iframeDoc.readyState === "complete") {
+              console.log("YouTube embed loaded successfully");
+            }
+          } catch (e) {
+            // Cross-origin restriction - this is normal for YouTube embeds
+            console.log(
+              "YouTube embed is loading (cross-origin restrictions prevent full verification)",
+            );
+          }
+        }, 5000);
+      }
+
+      // Initialize YouTube enhancement when DOM is loaded
+      document.addEventListener("DOMContentLoaded", enhanceYouTubeEmbed);
+
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+
+          const targetId = this.getAttribute("href");
+          if (targetId === "#") return;
+
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+            window.scrollTo({
+              top: targetElement.offsetTop - 70,
+              behavior: "smooth",
+            });
+          }
+        });
+      });
+
+      document.addEventListener('DOMContentLoaded', function() {
+    const flipCards = document.querySelectorAll('.flip-card');
+    
+    flipCards.forEach(card => {
+        // Add accessibility attributes
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('role', 'button');
+        
+        // Click to flip
+        card.addEventListener('click', function(e) {
+            e.stopPropagation();
+            this.classList.toggle('flipped');
+        });
+        
+        // Keyboard support
+        card.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                this.classList.toggle('flipped');
+            }
+        });
+        
+        // Optional: Add subtle hover effect
+        card.addEventListener('mouseenter', function() {
+            if (!this.classList.contains('flipped')) {
+                this.style.transform = 'translateY(-5px)';
+            }
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            if (!this.classList.contains('flipped')) {
+                this.style.transform = 'translateY(0)';
+            }
+        });
+    });
+    
+    // Close all flip cards when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.flip-card')) {
+            flipCards.forEach(card => {
+                card.classList.remove('flipped');
+                card.style.transform = 'translateY(0)';
+            });
+        }
+    });
+    
+    // Close all flip cards with Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            flipCards.forEach(card => {
+                card.classList.remove('flipped');
+                card.style.transform = 'translateY(0)';
+            });
+        }
+    });
+});
     </script>
-</body>
+  </body>
 </html>
