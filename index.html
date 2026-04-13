@@ -1049,6 +1049,156 @@
     font-size: 0.8rem;
 }
 
+/* Partner Logos Carousel */
+.partner-logos {
+    background: var(--text-light);
+    padding: 4rem 0;
+    text-align: center;
+    border-top: 1px solid #eee;
+    overflow: hidden;
+}
+
+.partner-logos .section-label {
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #aaa;
+    margin-bottom: 0.5rem;
+}
+
+.partner-logos h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    background: linear-gradient(to right, var(--irm-green), var(--irm-cyan));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.6rem;
+}
+
+.partner-logos .subtitle {
+    color: #888;
+    font-size: 0.92rem;
+    max-width: 480px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.6;
+    padding: 0 1.5rem;
+}
+
+.logo-carousel {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+}
+
+.logo-carousel::before,
+.logo-carousel::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 120px;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.logo-carousel::before {
+    left: 0;
+    background: linear-gradient(to right, #fff 0%, transparent 100%);
+}
+
+.logo-carousel::after {
+    right: 0;
+    background: linear-gradient(to left, #fff 0%, transparent 100%);
+}
+
+.logo-track {
+    display: flex;
+    gap: 2rem;
+    width: max-content;
+    animation: scrollLogos 24s linear infinite;
+    padding: 1rem 0;
+}
+
+.logo-carousel:hover .logo-track {
+    animation-play-state: paused;
+}
+
+@keyframes scrollLogos {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(calc(-50% - 1rem));
+    }
+}
+
+.logo-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    height: 96px;
+    background: #fff;
+    border: none;
+    border-radius: 0;
+    padding: 0.75rem 1.5rem;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.logo-card:hover {
+    transform: translateY(-2px);
+}
+
+.logo-card img {
+    max-width: 100%;
+    max-height: 68px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    display: block;
+}
+
+.logo-placeholder {
+    width: 100%;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.03em;
+}
+
+.lp1 {
+    background: #e8f5e9;
+    color: #2e7d32;
+}
+
+.lp2 {
+    background: #e0f7fa;
+    color: #00838f;
+}
+
+.lp3 {
+    background: #e8eaf6;
+    color: #3949ab;
+}
+
+.lp4 {
+    background: #fff3e0;
+    color: #ef6c00;
+}
+
+.lp5 {
+    background: #ede7f6;
+    color: #5e35b1;
+}
+
 /* Responsive Design - NO SCROLL VERSION */
 @media (min-width: 992px) {
     .benefits-grid {
@@ -1322,6 +1472,10 @@
           font-size: 1.1rem;
         }
 
+        .partner-logos h2 {
+          font-size: 2.2rem;
+        }
+
         .footer-content {
           grid-template-columns: 2fr 1fr 1.2fr 1fr;
           gap: 3rem;
@@ -1370,6 +1524,11 @@
         .testimonials-container {
           grid-template-columns: repeat(2, 1fr);
           gap: 1.5rem;
+        }
+
+        .logo-card {
+          width: 180px;
+          height: 92px;
         }
 
         .footer-content {
@@ -1457,6 +1616,25 @@
 
         .testimonials-container {
           grid-template-columns: 1fr;
+        }
+
+        .partner-logos h2 {
+          font-size: 1.6rem;
+        }
+
+        .logo-carousel::before,
+        .logo-carousel::after {
+          width: 48px;
+        }
+
+        .logo-card {
+          width: 160px;
+          height: 82px;
+          padding: 0.65rem 1rem;
+        }
+
+        .logo-card img {
+          max-height: 56px;
         }
 
         .footer-content {
@@ -2103,6 +2281,57 @@
     </div>
 </section>
 
+    <section class="partner-logos" aria-labelledby="partners-title">
+      <p class="section-label">Partners & Supporters</p>
+      <h2 id="partners-title">Our Partners & Supporters</h2>
+      <p class="subtitle">
+        Working together to build a stronger, more inclusive IRM sector across
+        South Africa.
+      </p>
+
+      <div class="logo-carousel">
+        <div class="logo-track">
+          <div class="logo-card">
+            <img
+              src="images/logos/giz-logo_2024-11-11-133203_nara.jpg"
+              alt="GIZ logo"
+            />
+          </div>
+          <div class="logo-card">
+            <img src="images/logos/SECO-Logo.jpg" alt="SECO logo" />
+          </div>
+          <div class="logo-card">
+            <img src="images/logos/EU.jpeg" alt="European Union logo" />
+          </div>
+          <div class="logo-card">
+            <img src="images/logos/dhet.jpg" alt="DHET logo" />
+          </div>
+          <div class="logo-card">
+            <img src="images/logos/NBI-Logo.jpg" alt="NBI logo" />
+          </div>
+
+          <div class="logo-card" aria-hidden="true">
+            <img
+              src="images/logos/giz-logo_2024-11-11-133203_nara.jpg"
+              alt=""
+            />
+          </div>
+          <div class="logo-card" aria-hidden="true">
+            <img src="images/logos/SECO-Logo.jpg" alt="" />
+          </div>
+          <div class="logo-card" aria-hidden="true">
+            <img src="images/logos/EU.jpeg" alt="" />
+          </div>
+          <div class="logo-card" aria-hidden="true">
+            <img src="images/logos/dhet.jpg" alt="" />
+          </div>
+          <div class="logo-card" aria-hidden="true">
+            <img src="images/logos/NBI-Logo.jpg" alt="" />
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Footer -->
     <footer>
       <div class="footer-content">
@@ -2141,6 +2370,11 @@
             <p>
               <strong>E-mail:</strong>
               <a href="mailto:info@nbi.org.za">info@nbi.org.za</a>
+            </p>
+            <p>
+              <a href="https://irm-initiative-faqs.tiiny.site"
+                >Get Clarity on Questions</a
+              >
             </p>
             <p>
               <strong>Address:</strong><br />
